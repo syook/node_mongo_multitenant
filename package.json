@@ -1,0 +1,21 @@
+{
+  "name": "node_multitenant",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "NODE_ENV=development nodemon --signal SIGTERM src/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "continuation-local-storage": "^3.2.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "helmet": "^3.21.3",
+    "log4js": "^6.1.2",
+    "mongoose": "^5.9.4"
+  }
+}
