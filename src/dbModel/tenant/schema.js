@@ -8,6 +8,11 @@ const tenantSchema = new Schema(
       unique: true,
       required: true
     },
+    dbName: {
+      type: String,
+      unique: true,
+      required: true
+    },
     dbURI: {
       type: String,
       trim: true,

@@ -4,7 +4,7 @@ mongoose.Promise = global.Promise;
 const clientOption = {
   socketTimeoutMS: 30000,
   keepAlive: true,
-  poolSize: 1,
+  poolSize: 10,
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,

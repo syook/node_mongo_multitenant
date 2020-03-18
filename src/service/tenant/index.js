@@ -16,16 +16,18 @@ const createTenant = async (adminDbConnection, body) => {
   try {
     const Tenant = await adminDbConnection.model("Tenant");
     const name = body.name;
-    const tenantPresent = await Tenant.findOne({
-      name
-    });
+    const dbName = `mt_${name}`;
+    const tenantPresent = await Tenant.findOne({ name });
     if (tenantPresent) {
       throw new Error("Tenant Already Present");
     }
     const newTenant = await new Tenant({
       name,
-      dbURI: `${BASE_DB_URI}/mt_${name}`
+      dbName,
+      dbURI: `${BASE_DB_URI}/${dbName}`
     }).save();
+
+    // TODO: emit event to connectAllDb and cache new tenant's db connection
     return newTenant;
   } catch (error) {
     console.log("createTenant error", error);
