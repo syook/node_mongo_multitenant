@@ -15,8 +15,8 @@ let adminDbConnection;
  **/
 const connectAllDb = async () => {
   let tenants;
-  const ADMIN_DB_URL = `${BASE_DB_URI}/${ADMIN_DB_NAME}`;
-  adminDbConnection = initAdminDbConnection(ADMIN_DB_URL);
+  const ADMIN_DB_URI = `${BASE_DB_URI}/${ADMIN_DB_NAME}`;
+  adminDbConnection = initAdminDbConnection(ADMIN_DB_URI);
   console.log("connectAllDb adminDbConnection", adminDbConnection.name);
   try {
     tenants = await tenantService.getAllTenants(adminDbConnection);
