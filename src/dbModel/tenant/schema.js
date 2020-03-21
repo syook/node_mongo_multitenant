@@ -35,4 +35,7 @@ tenantSchema.index({
   tenantId: 1
 });
 
-module.exports = mongoose.model("Tenant", tenantSchema);
+module.exports = mongooseConnection => {
+  // return an instance of the db model
+  return mongooseConnection.model("Tenant", tenantSchema);
+};

@@ -37,4 +37,7 @@ userSchema.index({
   userId: 1
 });
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongooseConnection => {
+  // return an instance of the db model
+  return mongooseConnection.model("User", userSchema);
+};

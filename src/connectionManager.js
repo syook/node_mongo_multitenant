@@ -1,20 +1,26 @@
-const { getNamespace } = require("continuation-local-storage");
+/**
+ * require this file in the main process
+ * instantiate a container for that process
+ * inject the container into connectAllDb to initialize db connection on that thread
+ * import getConnectionByTenant, getAdminConnection anywhere in that thread to get the reuqired db connections of that thread
+ */
+
+const { asValue } = require("awilix");
 
 const { BASE_DB_URI, ADMIN_DB_NAME } = require("./config/env.json");
 
 const { initTenantDbConnection } = require("./db/tenant");
 const { initAdminDbConnection } = require("./db/admin");
 
-const tenantService = require("./service/tenant");
-
 let adminDbConnection;
 let tenantDbConnection;
 let tenantsCache;
+
 /**
  * Create db connections for all the tenants defined in common database
  * this will create buffers for the models for each tenant connection
  **/
-const connectAllDb = async () => {
+const connectAllDb = async container => {
   try {
     let tenants;
 
@@ -23,12 +29,18 @@ const connectAllDb = async () => {
     adminDbConnection = initAdminDbConnection(ADMIN_DB_URI);
     console.log("connectAllDb adminDbConnection", adminDbConnection);
 
+    // set db in container scope
+    container.register({
+      mongooseConnection: asValue(adminDbConnection)
+    });
+
     // connect to test/admin db (base dbs for mongo)
     tenantDbConnection = initTenantDbConnection(BASE_DB_URI);
     console.log("connectAllDb initTenantDbConnection", tenantDbConnection);
 
     // for each tenant initialize the schemas
-    tenants = await tenantService.getAllTenants(adminDbConnection);
+    const tenantService = container.resolve("tenantService");
+    tenants = await tenantService.fetchAll();
     console.log("connectAllDb tenants", tenants);
 
     tenantsCache = tenants
@@ -71,25 +83,8 @@ const getAdminConnection = () => {
   }
 };
 
-/**
- * Get the db connection for current context
- * Here we have used a getNamespace from 'continuation-local-storage'
- * This will let us get / set any information and binds the information to current request context
- */
-const getConnection = () => {
-  const nameSpace = getNamespace("unique context");
-  const conn = nameSpace.get("connection");
-
-  if (!conn) {
-    throw new Error("Connection is not set for the tenant database");
-  }
-
-  return conn;
-};
-
 module.exports = {
   connectAllDb,
   getAdminConnection,
-  getConnection,
   getConnectionByTenant
 };
