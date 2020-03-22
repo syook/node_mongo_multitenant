@@ -27,9 +27,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // connect to all db on the main thread
-const { mainThreadContainerScope } = require("./service/mainThread");
-const container = mainThreadContainerScope();
-connectAllDb(container);
+connectAllDb();
 
 global.appRoot = path.resolve(__dirname);
 

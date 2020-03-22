@@ -53,7 +53,7 @@ const initAdminDbConnection = DB_URL => {
     });
 
     // require all schemas !?
-    require("../dbModel/tenant/schema");
+    // require("../dbModel/tenant/schema");
     return db;
   } catch (error) {
     console.log("initAdminDbConnection error", error);

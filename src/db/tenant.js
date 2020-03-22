@@ -53,7 +53,7 @@ const initTenantDbConnection = DB_URL => {
     });
 
     // require all schemas !?
-    require("../dbModel/user/schema");
+    // require("../dbModel/user/schema");
     return db;
   } catch (error) {
     console.log("initTenantDbConnection error", error);
