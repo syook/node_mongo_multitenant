@@ -7,10 +7,10 @@
 
 const { asValue } = require("awilix");
 
-const { BASE_DB_URI, ADMIN_DB_NAME } = require("./config/env.json");
+const { BASE_DB_URI, ADMIN_DB_NAME } = require("../config/env.json");
 
-const { initTenantDbConnection } = require("./db/tenant");
-const { initAdminDbConnection } = require("./db/admin");
+const { initTenantDbConnection } = require("./tenant");
+const { initAdminDbConnection } = require("./admin");
 
 let adminDbConnection;
 let tenantDbConnection;

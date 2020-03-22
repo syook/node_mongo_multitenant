@@ -3,7 +3,7 @@ const { asValue } = require("awilix");
 const {
   getConnectionByTenant,
   getAdminConnection
-} = require("../connectionManager");
+} = require("../db/connectionManager");
 
 const { mainThreadContainerScope } = require("../service/mainThread");
 

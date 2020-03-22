@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const helmet = require("helmet");
 const path = require("path");
 
-const { connectAllDb } = require("./connectionManager");
+const { connectAllDb } = require("./db/connectionManager");
 
 // Express app instance
 const app = express();

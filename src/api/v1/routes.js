@@ -1,7 +1,7 @@
 const express = require("express");
 
 // connection resolver for tenant
-const connectionResolver = require("../../middlewares/connectionResolver");
+const connectionResolver = require("../connectionResolver");
 
 // Mounting routes
 const v1Routes = express.Router();
