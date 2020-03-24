@@ -15,7 +15,7 @@ module.exports = class TenantDbModel {
   };
   create = async tenant => {
     try {
-      const object = await this.mongooseModel.create(tenant).lean();
+      const object = await this.mongooseModel.create(tenant);
       return object;
     } catch (error) {
       throw error;
